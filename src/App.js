@@ -1,24 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import Student from "./components/Student";
 
 function App() {
+	const x = 5
+	const y = 6
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+		<>
+			<Student/>
+
+			<h1>Addition: {x+y} </h1>
+			<h1>Sub: {x-y} </h1>
+			<h1>Mul: {x*y} </h1>
+			<p>Like this we can use variables</p>
+			
+		</>
   );
 }
 
