@@ -1,20 +1,12 @@
-import Student from "./components/Student";
-
+import LoadNews from "./components/LoadNews";
 function App() {
-	const x = 5
-	const y = 6
 
-  return (
+	
+	return (
 		<>
-			<Student/>
-
-			<h1>Addition: {x+y} </h1>
-			<h1>Sub: {x-y} </h1>
-			<h1>Mul: {x*y} </h1>
-			<p>Like this we can use variables</p>
-			
+		<LoadNews/>
 		</>
-  );
+	);
 }
 
 export default App;
