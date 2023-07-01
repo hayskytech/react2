@@ -1,10 +1,10 @@
 import React from 'react'
-import TodoList from './components/TodoList'
+import OTPLogin from './components/OTPLogin'
 
 function App() {
 	return (
 		<div>
-			<TodoList/>
+			<OTPLogin />
 		</div>
 	)
 }
