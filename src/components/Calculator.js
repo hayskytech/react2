@@ -3,10 +3,12 @@ import React, { useState } from 'react'
 function Calculator() {
 
 	function handlex(event){
-		setx(parseInt(event.target.value))
+		const v = event.target.value
+		setx(parseInt(v ? v : 0))
 	}
 	function handley(event){
-		sety(parseInt(event.target.value))
+		const v = event.target.value
+		sety(parseInt(v ? v : 0))
 	}
 	const [x, setx] = useState(0)
 	const [y, sety] = useState(0)
