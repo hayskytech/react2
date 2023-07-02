@@ -1,10 +1,11 @@
 import React from 'react'
-import OTPLogin from './components/OTPLogin'
+import OnlineTodoList from './components/OnlineTodoList'
+import TodoList from './components/TodoList'
 
 function App() {
 	return (
 		<div>
-			<OTPLogin />
+			<OnlineTodoList />
 		</div>
 	)
 }
