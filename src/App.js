@@ -1,11 +1,11 @@
 import React from 'react'
-import TodoOffline from './comp/TodoOffline'
+import FetchNews from './comp/FetchNews'
 
 export default function App() {
   return (
 
     <div>
-      <TodoOffline />
+      <FetchNews />
     </div>
 
   )

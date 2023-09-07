@@ -19,6 +19,7 @@ export default function TodoOffline() {
   }
   function removeall() {
     setlist([])
+    localStorage.setItem('todo', JSON.stringify([]))
   }
 
   return (
