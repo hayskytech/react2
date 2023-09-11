@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Nav, Navbar } from 'react-bootstrap'
+import { Button, Header, Icon, List, Modal, Segment } from 'semantic-ui-react'
 
 export default function CatNews() {
   const [cats, setcats] = useState([])
   const [posts, setposts] = useState([])
   const [category, setcategory] = useState('')
+  const [offset, setoffset] = useState(0)
+  const [box, setbox] = useState(false)
+  const [box2, setbox2] = useState(false)
+  const [loading, setloading] = useState(true)
 
-  const web = 'https://telugunewsadda.com/'
+  const [title, settitle] = useState('')
+  const [content, setcontent] = useState('')
+
+  // const web = 'https://telugudunia-in.stackstaging.com/'
+  const web = 'https://dharshininews.com/'
 
   useEffect(() => {
     fetch(web + 'wp-json/wp/v2/categories/?_fields=id,name&per_page=100')
@@ -18,9 +26,9 @@ export default function CatNews() {
 
   useEffect(() => {
     let data = {
-      _fields: 'id,title',
+      _fields: 'id,title,content',
       per_page: 10,
-      offset: 0
+      offset: offset
     }
     if (category) {
       data.categories = category
@@ -30,36 +38,96 @@ export default function CatNews() {
       .then(res => res.json())
       .then(json => {
         setposts(json)
+        setloading(false)
       })
-  }, [category])
+  }, [category, offset])
 
   return (
     <div>
-      <Navbar expand="lg" bg="primary" data-bs-theme="dark">
-        <Container>
-          <Navbar.Brand href="#home">Haysky News</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              {
-                cats.map((item) => {
-                  return (
-                    <Nav.Link onClick={() => { setcategory(item.id) }}>{item.name}</Nav.Link>
-                  )
-                })
-              }
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+
+      <List verticalAlign='middle'>
+        <List.Item>
+          <List.Content floated='right'>
+            <Button color='blue' icon onClick={() => { setbox(true) }}>
+              <Icon name='bars' />
+            </Button>
+          </List.Content>
+          <Header as='h2'>Haysky News</Header>
+        </List.Item>
+      </List>
+
+
+      <Modal
+        closeIcon
+        onClose={() => setbox(false)}
+        onOpen={() => setbox(true)}
+        open={box}
+      >
+        <Modal.Content>
+          <Modal.Description>
+            {
+              cats.map((item) => {
+                return (
+                  <Header as='h3'
+                    onClick={() => {
+                      setcategory(item.id)
+                      setoffset(0)
+                      setloading(true)
+                      setbox(false)
+                    }}>{item.name}</Header>
+                )
+              })
+            }
+          </Modal.Description>
+        </Modal.Content>
+      </Modal>
+
+
+      <div>
+        {offset > 10 ? <Button color='blue' onClick={() => { setoffset(offset - 10); setloading(true) }}>Previous</Button> : ''}
+        <Button color='blue' onClick={() => { setoffset(offset + 10); setloading(true) }}>Next</Button>
+      </div>
+
 
       {
-        posts.map((item) => {
-          return (
-            <p>{item.title.rendered}</p>
-          )
-        })
+        loading ? <Icon loading name='spinner' size='huge' /> :
+
+          posts.map((item) => {
+            return (
+              <List divided relaxed>
+                <List.Item>
+                  <List.Icon name='angle double right' size='large' verticalAlign='middle' />
+                  <List.Content>
+                    <List.Header as='a'
+                      onClick={() => {
+                        setbox2(true)
+                        settitle(item.title.rendered)
+                        setcontent(item.content.rendered)
+                      }}
+                    >{item.title.rendered}</List.Header>
+                  </List.Content>
+                </List.Item>
+              </List>
+            )
+          })
       }
+
+
+      <Modal
+        closeIcon
+        onClose={() => setbox2(false)}
+        onOpen={() => setbox2(true)}
+        open={box2}
+      >
+        <Modal.Content>
+          <Modal.Description>
+            <Header>{title}</Header>
+            <div dangerouslySetInnerHTML={{ __html: content }}></div>
+          </Modal.Description>
+        </Modal.Content>
+
+      </Modal>
+
     </div>
   )
 }
