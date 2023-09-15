@@ -1,13 +1,12 @@
 import 'semantic-ui-css/semantic.min.css'
 import React from 'react'
-import AddNews from './comp/AddNews'
-import Books from './myapi/Books'
+import Main from './pages/Main'
 
 export default function App() {
   return (
 
     <div>
-      <Books />
+      <Main />
     </div>
 
   )
