@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Student from './Student'
+import EditStudent from './EditStudent'
+import { List } from 'semantic-ui-react'
 
 export default function AllStudents() {
   const [list, setlist] = useState([])
+  const [box, setbox] = useState(false)
   useEffect(() => {
     const url = 'https://djando-code.000webhostapp.com/wp-json/wp/v2/student'
     const data = {
@@ -19,11 +22,14 @@ export default function AllStudents() {
   }, [])
   return (
     <div>
-      {
-        list.map((item) => {
-          return (<Student item={item} />)
-        })
-      }
+      <EditStudent box={box} setbox={setbox} />
+      <List>
+        {
+          list.map((item) => {
+            return (<Student item={item} box={box} setbox={setbox} />)
+          })
+        }
+      </List>
     </div>
   )
 }
