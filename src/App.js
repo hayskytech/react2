@@ -1,12 +1,12 @@
 import 'semantic-ui-css/semantic.min.css'
 import React from 'react'
-import AllStudents from './myapi/AllStudents'
+import Home from './myapi/Home'
 
 export default function App() {
   return (
 
     <div>
-      <AllStudents />
+      <Home />
     </div>
 
   )

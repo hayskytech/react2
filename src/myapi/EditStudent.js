@@ -3,32 +3,42 @@ import { Button, Form, Modal } from 'semantic-ui-react'
 
 export default function EditStudent(p) {
 
-  const [stu, setstu] = useState(
-    {
-      title: '',
-      phone: '',
-      date_of_birth: ''
-    }
-  )
-
   function handletitle(e) {
-    setstu(prev => ({
+    p.setstu(prev => ({
       ...prev,
-      title: e.target.value
+      title: { rendered: e.target.value }
     })
     )
   }
   function handlephone(e) {
-    setstu(prev => ({
+    p.setstu(prev => ({
       ...prev,
-      phone: e.target.value
+      acf: {
+        ...prev.acf,
+        phone: e.target.value
+      }
     })
     )
   }
 
 
   function handleform() {
-    console.log(stu)
+    // saving data via API
+    const url = 'http://localhost/qhaysky.com/wp-json/wp/v2/person/227/'
+    let requestOptions = {
+      method: "POST",
+      headers: {
+        "Accept": "*/*",
+        "Authorization": 'Basic ' + btoa('admin:admin'),
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        "title": "hello"
+      })
+    }
+    fetch(url, requestOptions)
+      .then(res => res.json())
+      .then(json => console.log(json))
   }
   return (
     <div>
@@ -43,18 +53,22 @@ export default function EditStudent(p) {
           <Form>
             <Form.Field>
               <label>Student Name</label>
-              <input value={stu.title} onChange={handletitle} />
+              <input value={p.stu?.title.rendered} onChange={handletitle} />
             </Form.Field>
             <Form.Field>
               <label>Phone</label>
-              <input value={stu.phone} onChange={handlephone} />
+              <input value={p.stu.acf.phone} onChange={handlephone} />
             </Form.Field>
             <Form.Field>
               <label>Date of birth</label>
-              <input type='date' value={stu.dob}
+              <input type='date' value={p.stu.acf.date_of_birth}
                 onChange={(e) => {
-                  setstu(prev => ({
-                    ...prev, date_of_birth: e.target.value
+                  p.setstu(prev => ({
+                    ...prev,
+                    acf: {
+                      ...prev.acf,
+                      date_of_birth: e.target.value
+                    }
                   }))
                 }}
               />

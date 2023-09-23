@@ -2,11 +2,15 @@ import React from 'react'
 import { Button, List } from 'semantic-ui-react'
 
 export default function Student(p) {
+  function editnow() {
+    p.setbox(true)
+    p.setstu(p.item)
+  }
   return (
     <List.Item style={{ borderColor: 'black', borderWidth: 2, borderStyle: 'solid', padding: 10, margin: 10 }}>
 
       <List.Content floated='right'>
-        <Button onClick={() => { p.setbox(true) }}>Edit</Button>
+        <Button onClick={editnow}>Edit</Button>
       </List.Content>
 
       <List.Content>
