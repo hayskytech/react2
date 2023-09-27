@@ -1,12 +1,12 @@
 import 'semantic-ui-css/semantic.min.css'
 import React from 'react'
-import Home from './myapi/Home'
+import Main from './FB/Main'
 
 export default function App() {
   return (
 
     <div>
-      <Home />
+      <Main />
     </div>
 
   )
